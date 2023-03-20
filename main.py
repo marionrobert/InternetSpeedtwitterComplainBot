@@ -51,7 +51,7 @@ class InternetSpeedTwitterBot:
         print("find the connect button and click on it")
         sign_in_button = self.driver.find_element(By.XPATH, "//*[@id='layers']/div/div[1]/div/div/div/div/div[2]/div/div/div[1]/a/div/span/span")
         sign_in_button.click()
-        time.sleep(10)
+        time.sleep(15)
         print("find the input email and enter email")
         input_email = self.driver.find_element(By.NAME, "text")
         input_email.send_keys(EMAIL)
