@@ -70,11 +70,12 @@ class InternetSpeedTwitterBot:
         time.sleep(5)
         password_email.send_keys(Keys.ENTER)
         time.sleep(10)
-        print("find the input message and enter message")
-        twit_area = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div")
+        print("find the tweet area and enter message")
+        # twit_area = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div")
+        tweet_area = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div/span")
         message = f"@bouyguestelecom you promised {PROMISED_UP} up and {PROMISED_DOWN} down. I've got only {self.up} up and {self.down} down."
         print(message)
-        twit_area.send_keys(message)
+        tweet_area.send_keys(message)
         print("send the message!")
         send_twit_button = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div[3]/div/span/span")
         # send_twit_button.click()
@@ -87,6 +88,4 @@ print(bot.down)
 print(bot.up)
 if bot.up < PROMISED_UP and bot.down < PROMISED_DOWN:
     bot.tweet_at_provider()
-
-
 
