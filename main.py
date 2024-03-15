@@ -6,12 +6,13 @@ from selenium.webdriver.common.keys import Keys
 import os
 import time
 
-chrome_driver_path = os.environ["CHROME_DRIVER_PATH"]
+chrome_driver_path = r"C:\Users\Utilisateur1\Development\chromedriver.exe"
 service = Service(chrome_driver_path)
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
-PROMISED_DOWN = 37
-PROMISED_UP = 27
+PROMISED_DOWN = 300
+PROMISED_UP = 300
+INTERNET_PROVIDER = "@bellCanada"
 
 EMAIL = os.environ["EMAIL"]
 USERNAME = os.environ["USERNAME"]
@@ -25,15 +26,11 @@ class InternetSpeedTwitterBot:
         self.driver = webdriver.Chrome(service=service, options=options)
 
     def get_internet_speed(self):
-        print("go to speedtest")
-        self.driver.get("https://www.speedtest.net")
-        self.driver.maximize_window()
-        time.sleep(3)
-        print("accept cookies")
-        accept_cookies_button = self.driver.find_element(By.ID, "onetrust-accept-btn-handler")
-        accept_cookies_button.click()
-        time.sleep(3)
-        print("start the test and wait 45s")
+        print("In the get_internet_seed function")
+        self.driver.get("https://www.speedtest.net/")
+        print("wait 10 seconds")
+        time.sleep(10)
+        print("start the test and wait 60s")
         start_button = self.driver.find_element(By.CSS_SELECTOR, ".start-text")
         start_button.click()
         time.sleep(60)
@@ -49,18 +46,12 @@ class InternetSpeedTwitterBot:
         self.driver.get("https://twitter.com/")
         time.sleep(10)
         print("find the connect button and click on it")
-        sign_in_button = self.driver.find_element(By.XPATH, "//*[@id='layers']/div/div[1]/div/div/div/div/div[2]/div/div/div[1]/a/div/span/span")
+        sign_in_button = self.driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div[1]/div/div/div[3]/div[5]/a')
         sign_in_button.click()
         time.sleep(15)
         print("find the input email and enter email")
         input_email = self.driver.find_element(By.NAME, "text")
         input_email.send_keys(EMAIL)
-        time.sleep(10)
-        input_email.send_keys(Keys.ENTER)
-        time.sleep(3)
-        print("find the input username and enter username")
-        input_email = self.driver.find_element(By.NAME, "text")
-        input_email.send_keys(USERNAME)
         time.sleep(10)
         input_email.send_keys(Keys.ENTER)
         time.sleep(3)
@@ -71,9 +62,8 @@ class InternetSpeedTwitterBot:
         password_email.send_keys(Keys.ENTER)
         time.sleep(10)
         print("find the tweet area and enter message")
-        # twit_area = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div")
         tweet_area = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div/span")
-        message = f"@bouyguestelecom you promised {PROMISED_UP} up and {PROMISED_DOWN} down. I've got only {self.up} up and {self.down} down."
+        message = f"{INTERNET_PROVIDER} you promised {PROMISED_UP} up and {PROMISED_DOWN} down. I've got only {self.up} up and {self.down} down."
         print(message)
         tweet_area.send_keys(message)
         print("send the message!")
@@ -82,7 +72,9 @@ class InternetSpeedTwitterBot:
         print(send_twit_button.get_attribute("innerHTML"))
 
 
+print("-- create bot --")
 bot = InternetSpeedTwitterBot()
+print("-- go to get_internet_speed --")
 bot.get_internet_speed()
 print(bot.down)
 print(bot.up)
