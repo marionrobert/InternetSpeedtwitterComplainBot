@@ -30,6 +30,14 @@ class InternetSpeedTwitterBot:
         self.driver.get("https://www.speedtest.net/")
         print("wait 10 seconds")
         time.sleep(10)
+        try:
+            print("accept cookies")
+            accept_cookies_button = self.driver.find_element(By.ID, "onetrust-accept-btn-handler")
+            accept_cookies_button.click()
+            time.sleep(3)
+        except NoSuchElementException:  # spelling error making this code not work as expected
+            print("no cookies window")
+            pass
         print("start the test and wait 60s")
         start_button = self.driver.find_element(By.CSS_SELECTOR, ".start-text")
         start_button.click()
