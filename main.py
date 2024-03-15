@@ -28,8 +28,8 @@ class InternetSpeedTwitterBot:
     def get_internet_speed(self):
         print("In the get_internet_seed function")
         self.driver.get("https://www.speedtest.net/")
-        print("wait 10 seconds")
-        time.sleep(10)
+        print("wait 5 seconds")
+        time.sleep(5)
         try:
             print("accept cookies")
             accept_cookies_button = self.driver.find_element(By.ID, "onetrust-accept-btn-handler")
@@ -60,8 +60,18 @@ class InternetSpeedTwitterBot:
         print("find the input email and enter email")
         input_email = self.driver.find_element(By.NAME, "text")
         input_email.send_keys(EMAIL)
-        time.sleep(10)
+        time.sleep(5)
         input_email.send_keys(Keys.ENTER)
+        try:
+            time.sleep(5)
+            print("robot detection window")
+            input_email = self.driver.find_element(By.NAME, "text")
+            input_email.send_keys(USERNAME)
+            time.sleep(10)
+            input_email.send_keys(Keys.ENTER)
+        except NoSuchElementException:  # spelling error making this code not work as expected
+            print("no robot detection window")
+            pass
         time.sleep(3)
         print("find password input and enter password")
         password_email = self.driver.find_element(By.NAME, "password")
@@ -70,7 +80,7 @@ class InternetSpeedTwitterBot:
         password_email.send_keys(Keys.ENTER)
         time.sleep(10)
         print("find the tweet area and enter message")
-        tweet_area = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div/span")
+        tweet_area = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div/div/div/div/div/span[2]/span")
         message = f"{INTERNET_PROVIDER} you promised {PROMISED_UP} up and {PROMISED_DOWN} down. I've got only {self.up} up and {self.down} down."
         print(message)
         tweet_area.send_keys(message)
@@ -82,10 +92,10 @@ class InternetSpeedTwitterBot:
 
 print("-- create bot --")
 bot = InternetSpeedTwitterBot()
+print("bot -->", bot)
 print("-- go to get_internet_speed --")
 bot.get_internet_speed()
 print(bot.down)
 print(bot.up)
 if bot.up < PROMISED_UP and bot.down < PROMISED_DOWN:
     bot.tweet_at_provider()
-
