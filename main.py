@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 import os
 import time
@@ -80,14 +80,14 @@ class InternetSpeedTwitterBot:
         password_email.send_keys(Keys.ENTER)
         time.sleep(10)
         print("find the tweet area and enter message")
-        tweet_area = self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div/div/div/div/div/span[2]/span")
+        tweet_area = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div/span")
         message = f"{INTERNET_PROVIDER} you promised {PROMISED_UP} up and {PROMISED_DOWN} down. I've got only {self.up} up and {self.down} down."
         print(message)
         tweet_area.send_keys(message)
         print("send the message!")
-        send_twit_button = self.driver.find_element(By.XPATH, "//*[@id='react-root']/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div[3]/div/span/span")
+        send_twit_button = self.driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div[2]/div[1]/div/div/div/div[2]/div[2]/div[2]/div/div/div/div[3]/div')
         # send_twit_button.click()
-        print(send_twit_button.get_attribute("innerHTML"))
+        self.driver.quit()
 
 
 print("-- create bot --")
